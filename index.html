@@ -70,7 +70,7 @@
       <iframe id="preview-window"></iframe>
     </div>
     <script>
-      let editor = CodeMirror.fromTextArea(
+      let htmlEditor = CodeMirror.fromTextArea(
         document.getElementById("htmlCode"),
         {
           mode: "xml",
@@ -79,21 +79,45 @@
           autoCloseTags: true,
         }
       );
-      editor.on("change", function () {
-        console.log("in showPreview..");
-        let htmlCode = document.getElementById("htmlCode").value;
-        // let cssCode =
-        //   "<style>" + document.getElementById("cssCode").value + "</style>";
-        // let jsCode =
-        //   "<scri" +
-        //   "pt>" +
-        //   document.getElementById("jsCode").value +
-        //   "</scri" +
-        //   "pt>";
-        let frame = document.getElementById("preview-window").contentWindow
-          .document;
+      let cssEditor = CodeMirror.fromTextArea(
+        document.getElementById("cssCode"),
+        {
+          mode: "css",
+          theme: "dracula",
+          lineNumbers: true,
+          autoCloseTags: true,
+        }
+      );
+      let frame = document.getElementById("preview-window").contentWindow
+        .document;
+
+      function log() {
+        console.log("logging...");
+      }
+
+      htmlEditor.on("change", log);
+
+      //   htmlEditor.on("change", function () {
+      //     console.log("in showPreview..");
+      //     // let htmlCode = document.getElementById("htmlCode").value;
+      //     // let cssCode =
+      //     //   "<style>" + document.getElementById("cssCode").value + "</style>";
+      //     // let jsCode =
+      //     //   "<scri" +
+      //     //   "pt>" +
+      //     //   document.getElementById("jsCode").value +
+      //     //   "</scri" +
+      //     //   "pt>";
+
+      //     frame.open();
+      //     frame.write(htmlEditor.getValue());
+      //     frame.close();
+      //   });
+
+      cssEditor.on("change", function () {
+        console.log("css changed..");
         frame.open();
-        frame.write(editor.getValue());
+        frame.write("<style>" + cssEditor.getValue() + "</style>");
         frame.close();
       });
     </script>
