@@ -7,6 +7,7 @@
     <script src="https://cdn.jsdelivr.net/combine/npm/codemirror@5.57.0,npm/codemirror@5.57.0/addon/edit/closetag.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/codemirror@5.57.0/addon/edit/closetag.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/codemirror@5.57.0/mode/xml/xml.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/codemirror@5.57.0/mode/css/css.min.js"></script>
     <link
       href="https://cdn.jsdelivr.net/npm/codemirror@5.57.0/lib/codemirror.min.css"
       rel="stylesheet"
@@ -82,7 +83,7 @@
       let cssEditor = CodeMirror.fromTextArea(
         document.getElementById("cssCode"),
         {
-          mode: "css",
+          mode: "xml",
           theme: "dracula",
           lineNumbers: true,
           autoCloseTags: true,
@@ -91,11 +92,16 @@
       let frame = document.getElementById("preview-window").contentWindow
         .document;
 
-      function log() {
-        console.log("logging...");
+      function showPreview() {
+        let htmlCode = htmlEditor.getValue();
+        let cssCode = `<style>${cssEditor.getValue()}</style>`;
+        console.log();
+        frame.open();
+        frame.write(htmlCode + cssCode);
+        frame.close();
       }
 
-      htmlEditor.on("change", log);
+      htmlEditor.on("change", showPreview);
 
       //   htmlEditor.on("change", function () {
       //     console.log("in showPreview..");
@@ -114,12 +120,7 @@
       //     frame.close();
       //   });
 
-      cssEditor.on("change", function () {
-        console.log("css changed..");
-        frame.open();
-        frame.write("<style>" + cssEditor.getValue() + "</style>");
-        frame.close();
-      });
+      cssEditor.on("change", showPreview);
     </script>
   </body>
 </html>
