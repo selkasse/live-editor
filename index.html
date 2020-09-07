@@ -125,26 +125,19 @@ function changeH1(){
       }
 
       htmlEditor.on("change", showPreview);
-
-      //   htmlEditor.on("change", function () {
-      //     console.log("in showPreview..");
-      //     // let htmlCode = document.getElementById("htmlCode").value;
-      //     // let cssCode =
-      //     //   "<style>" + document.getElementById("cssCode").value + "</style>";
-      //     // let jsCode =
-      //     //   "<scri" +
-      //     //   "pt>" +
-      //     //   document.getElementById("jsCode").value +
-      //     //   "</scri" +
-      //     //   "pt>";
-
-      //     frame.open();
-      //     frame.write(htmlEditor.getValue());
-      //     frame.close();
-      //   });
-
       cssEditor.on("change", showPreview);
-      jsEditor.on("change", showPreview);
+
+      jsEditor.on("keyup", function (cm, event) {
+        if (
+          event.key == "Enter" ||
+          event.key == ";" ||
+          event.key == ")" ||
+          event.key == "}"
+        ) {
+          showPreview();
+        }
+      });
+
       showPreview();
     </script>
   </body>
