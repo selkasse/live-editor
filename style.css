@@ -9,6 +9,10 @@ body {
   display: flex;
 }
 
+.CodeMirror {
+  height: 33.33%;
+}
+
 .code-area {
   display: flex;
   flex-direction: column;
