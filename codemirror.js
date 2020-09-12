@@ -46,7 +46,22 @@ let frame = document.getElementById("preview-window").contentWindow
     .document;
 
 const writeMarkup = function () {
-    const htmlString = `<h2 id='test'>ooo where did this come from?!</h2>`;
+    const htmlString = 
+    `<div id='story'>
+        <p>
+        As you come to a clearing in the forest, you see an old-looking 
+        scroll against a tree, almost as if someone had left it there intentionally.
+        </p>
+        <p>
+        You pick up the scroll; it's a map! There's no time to look it over, though
+         -- the Rinh Bagh run rampant in these woods. Better stash it for now.
+        </p>
+        <p>
+        We'll need to make an Inventory to place the map in.
+        </p>
+        
+    </div>
+    `
     return htmlString;
 }
 
@@ -59,8 +74,16 @@ function showPreview() {
     frame.open();
     frame.write(defaultCode + htmlCode + cssCode + jsCode);
     frame.close();
-    frame.getElementById('test').style.color = "orange";
-    frame.body.style.backgroundColor = "black";
+
+    const story = frame.getElementById('story');
+    story.style.color = "#fff7e6";
+    story.style.fontSize = "22px";
+    story.style.fontFamily = "Palatino Linotype";
+    // story.style.fontFamily = "Trebuchet MS";
+
+    // story.style.fontStyle = "italic";
+    // story.style.fontWeight = "bold";
+    frame.body.style.backgroundColor = "#494d5f";
 
 }
 
