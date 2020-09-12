@@ -1,19 +1,16 @@
 // * Set initial editor values
 
 let htmlCode = document.getElementById('htmlCode');
-htmlCode.innerHTML = `<h1 id="my-h1">Hey now!</h1>
-<button onclick="changeH1()">Click Me!</button>`;
+htmlCode.innerHTML = `<!-- HTML -->
+`;
+
+
 
 let cssCode = document.getElementById('cssCode');
-cssCode.innerHTML = `h1 {
-    color: blue;
-}`;
+cssCode.innerHTML = `/* CSS */`;
 
 let jsCode = document.getElementById('jsCode');
-jsCode.innerHTML = `function changeH1(){
-    let h1 = document.getElementById('my-h1'); 
-    h1.innerHTML = 'Boom!';
-}`;
+jsCode.innerHTML = `// JavaScript`;
 
 // * Convert textareas to CodeMirror objects
 
@@ -48,14 +45,23 @@ let jsEditor = CodeMirror.fromTextArea(
 let frame = document.getElementById("preview-window").contentWindow
     .document;
 
+const writeMarkup = function () {
+    const htmlString = `<h2 id='test'>ooo where did this come from?!</h2>`;
+    return htmlString;
+}
+
 // * Render the preview in the iframe
 function showPreview() {
     let htmlCode = htmlEditor.getValue();
     let cssCode = `<style>${cssEditor.getValue()}</style>`;
     let jsCode = "<scri" + "pt>" + jsEditor.getValue() + "</scri" + "pt>";
+    let defaultCode = writeMarkup();
     frame.open();
-    frame.write(htmlCode + cssCode + jsCode);
+    frame.write(defaultCode + htmlCode + cssCode + jsCode);
     frame.close();
+    frame.getElementById('test').style.color = "orange";
+    frame.body.style.backgroundColor = "black";
+
 }
 
 // * Add CodeMirror event listeners to editors
